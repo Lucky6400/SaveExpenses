@@ -16,7 +16,7 @@ export default function App() {
       <Tab.Navigator
         barStyle={{ backgroundColor: '#fff' }}
         screenOptions={({ route }) => ({
-          tabBarLabel: <Text>{route.name}</Text>
+          tabBarLabel: <Text style={{ fontWeight: 500 }}>{route.name}</Text>
         })}
         sceneAnimationEnabled
       >
@@ -56,12 +56,3 @@ export default function App() {
 
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
