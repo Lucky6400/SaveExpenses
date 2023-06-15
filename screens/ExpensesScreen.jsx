@@ -1,9 +1,11 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ExpenseItem from '../components/ExpenseItem';
 import { dummyExpenses } from '../data/expenses';
 import { styles } from '../styles/Expense';
+import { Button, Provider, Portal } from 'react-native-paper';
+import AddExpenseComponent from '../components/Expenses/AddExpenseComponent';
 
 const ExpensesScreen = () => {
   const renderExpenseItem = (expense) => {
@@ -16,18 +18,36 @@ const ExpensesScreen = () => {
     };
 
     return (
-     <ExpenseItem expense={expense} handleDelete={handleDelete} handleEdit={handleEdit} key={expense.id} styles={styles}/>
+      <ExpenseItem expense={expense} handleDelete={handleDelete} handleEdit={handleEdit} key={expense.id} styles={styles} />
     );
   };
 
+  const [visible, setVisible] = useState(false);
+
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  const containerStyle = { backgroundColor: 'white', padding: 20, width: '80%', borderRadius: 8 };
+
+  const handleAddExpense = (newExpense) => {
+    // Handle adding the new expense to your expenses list
+    console.log('New Expense:', newExpense);
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.screenTitle}>Expenses</Text>
-      {dummyExpenses.map(renderExpenseItem)}
-      <TouchableOpacity style={styles.addButton}>
-        <Icon name="add" size={36} color="white" style={styles.addButtonIcon} />
-      </TouchableOpacity>
-    </View>
+    <Provider>
+      <Portal>
+        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+          <AddExpenseComponent handleAddExpense={handleAddExpense} />
+        </Modal>
+      </Portal>
+      <View style={styles.container}>
+        <Text style={styles.screenTitle}>Expenses</Text>
+        {dummyExpenses.map(renderExpenseItem)}
+        <TouchableOpacity onPress={showModal} style={styles.addButton}>
+          <Icon name="add" size={36} color="white" style={styles.addButtonIcon} />
+        </TouchableOpacity>
+      </View>
+    </Provider>
   );
 };
 
