@@ -1,7 +1,5 @@
 import React from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
-import { List, Avatar, Title, Caption, IconButton } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import { dummyExpenses } from '../data/expenses';
 import ExpenseItem from './ExpenseItem';
 import { styles as expenseStyles } from '../styles/Expense'

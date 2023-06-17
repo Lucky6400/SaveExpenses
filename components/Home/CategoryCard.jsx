@@ -5,7 +5,7 @@ import { Button, Card, Title, TouchableRipple } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { categories } from '../../data/categories';
 
-export default function CategoryCard({ styles }) {
+export default function CategoryCard({ styles, navigation }) {
     return (
         <Card style={styles.card}>
             <LinearGradient colors={['#A56EFF', '#6200EE']} style={styles.cardBackground}>
@@ -19,7 +19,7 @@ export default function CategoryCard({ styles }) {
                             </TouchableRipple>
                         ))}
 
-                        <Button icon="chevron-right" mode="contained" onPress={() => console.log('View All')} style={styles.viewAllButton}>
+                        <Button icon="chevron-right" mode="contained" onPress={() => navigation.navigate("Categories")} style={styles.viewAllButton}>
                             View All
                         </Button>
                     </View>

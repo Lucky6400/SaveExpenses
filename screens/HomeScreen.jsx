@@ -1,17 +1,35 @@
-import React, { useRef, useState } from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
-import { Appbar, Card, Title } from 'react-native-paper';
+import React, { useState } from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
+import { Appbar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import RecentExpenses from '../components/RecentExpenses';
 import { ScrollView } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import CategoryCard from '../components/Home/CategoryCard';
 import { FlatList } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { Text } from 'react-native';
+import {
+    LineChart
+} from "react-native-chart-kit";
 
 const HomeScreen = ({ navigation, route }) => {
     console.log(navigation)
+    const chartConfig = {
+        backgroundColor: "#e26a00",
+        backgroundGradientFrom: "#fb8c00",
+        backgroundGradientTo: "#ffa726",
+        decimalPlaces: 0, // optional, defaults to 2dp
+        color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+        labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+        style: {
+            borderRadius: 16
+        },
+        propsForDots: {
+            r: "6",
+            strokeWidth: "2",
+            stroke: "#ffa726"
+        }
+    };
     const [open, setOpen] = useState(false);
     const openDrawer = () => {
         setOpen(p => !p);
@@ -41,7 +59,11 @@ const HomeScreen = ({ navigation, route }) => {
     return (
         <>
             <Appbar.Header style={{ backgroundColor: 'rgba(255, 255, 255, 1)' }}>
-                <Appbar.Content color='#000' titleStyle={{ fontWeight: 'bold' }} title="SAVE EXPENSES" />
+                <Appbar.Content color='#000' titleStyle={{ fontWeight: 'bold' }} title={<Text style={{ fontWeight: 'bold', fontSize: 20 }}>
+                    <Text style={{ color: "#6200EE"}}>
+                        SAVE
+                    </Text>
+                   {" "} EXPENSES</Text>} />
                 <Appbar.Action color='#979797' icon="menu" onPress={openDrawer} />
             </Appbar.Header>
             {open ?
@@ -56,7 +78,7 @@ const HomeScreen = ({ navigation, route }) => {
                 : <></>}
 
             <ScrollView style={styles.container}>
-                <Card style={styles.card}>
+                {/* <Card style={styles.card}>
                     <LinearGradient colors={['#A56EFF', '#6200EE']} style={styles.cardBackground}>
                         <Card.Content>
                             <Title style={styles.cardTitle}>Total Expenses</Title>
@@ -66,9 +88,41 @@ const HomeScreen = ({ navigation, route }) => {
                             </View>
                         </Card.Content>
                     </LinearGradient>
-                </Card>
+                </Card> */}
 
-                <CategoryCard styles={styles} />
+                <LineChart
+
+                    fromZero
+                    data={{
+                        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"].slice(-6),
+                        datasets: [
+                            {
+                                data: [
+                                    20000,
+                                    7500,
+                                    4400,
+                                    7200,
+                                    8004,
+                                    5600
+                                ]
+                            }
+                        ]
+                    }}
+                    width={Dimensions.get("window").width} // from react-native
+                    height={220}
+                    yAxisLabel="₹"
+                    yAxisSuffix=""
+                    yAxisInterval={1} // optional, defaults to 1
+                    chartConfig={chartConfig}
+                    bezier
+                    style={{
+                        marginBottom: 8,
+                        borderRadius: 0
+                    }}
+                />
+
+
+                <CategoryCard navigation={navigation} styles={styles} />
 
                 <RecentExpenses />
 
@@ -81,7 +135,7 @@ const HomeScreen = ({ navigation, route }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#ffffff',
 
     },
     card: {
@@ -113,9 +167,11 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     categoryContainer: {
+        width: '100%',
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 16,
+        gap: 10
     },
     viewAllButton: {
         marginLeft: 16,
@@ -128,7 +184,6 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 999,
-        marginHorizontal: 5,
         textAlign: 'center',
         textAlignVertical: 'center',
         justifyContent: 'center',
