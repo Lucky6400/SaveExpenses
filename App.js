@@ -6,13 +6,28 @@ import SettingScreen from './screens/SettingScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ExpensesScreen from './screens/ExpensesScreen';
+import 'react-native-gesture-handler';
+import { createStackNavigator } from '@react-navigation/stack';
 
+const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
       <StatusBar style="auto" />
+      <Stack.Navigator>
+        <Stack.Screen options={{ headerShown: false }} name="First" component={TabStack} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+
+function TabStack() {
+  return (
+
+    <>
       <Tab.Navigator
         barStyle={{ backgroundColor: '#fff' }}
         screenOptions={({ route }) => ({
@@ -52,7 +67,6 @@ export default function App() {
 
 
       </Tab.Navigator>
-    </NavigationContainer>
-
-  );
+    </>
+  )
 }

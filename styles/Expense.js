@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     screenTitle: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginTop: 16,
+        marginTop: 36,
         marginBottom: 24,
         color: '#6200EE',
     },
@@ -57,9 +57,11 @@ export const styles = StyleSheet.create({
     expenseItemActions: {
         flexDirection: 'row',
         alignItems: 'center',
+        marginLeft: -50,
+        gap: 10
     },
     actionIcon: {
-        marginLeft: 16,
+        marginLeft: 0,
     },
     addButton: {
         position: 'absolute',

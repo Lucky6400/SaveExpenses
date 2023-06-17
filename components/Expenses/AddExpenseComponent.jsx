@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-nativ
 import { Picker } from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const AddExpenseComponent = ({ handleAddExpense }) => {
+const AddExpenseComponent = ({ handleAddExpense, hideModal }) => {
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
     const [selectedIcon, setSelectedIcon] = useState('food');
@@ -51,6 +51,9 @@ const AddExpenseComponent = ({ handleAddExpense }) => {
             <TouchableOpacity style={styles.saveButton} onPress={handleSaveExpense}>
                 <Text style={styles.saveButtonText}>Save Expense</Text>
             </TouchableOpacity>
+            <TouchableOpacity style={styles.backButton} onPress={() => hideModal()}>
+                <Text style={styles.saveButtonText}>Back</Text>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -88,6 +91,13 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         fontSize: 16,
+    },
+    backButton: {
+        backgroundColor: '#727272',
+        paddingVertical: 12,
+        borderRadius: 4,
+        alignItems: 'center',
+        marginTop: 10
     },
 });
 

@@ -31,13 +31,14 @@ const ExpensesScreen = () => {
   const handleAddExpense = (newExpense) => {
     // Handle adding the new expense to your expenses list
     console.log('New Expense:', newExpense);
+    hideModal();
   };
 
   return (
     <Provider>
       <Portal>
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-          <AddExpenseComponent handleAddExpense={handleAddExpense} />
+          <AddExpenseComponent hideModal={hideModal} handleAddExpense={handleAddExpense} />
         </Modal>
       </Portal>
       <View style={styles.container}>
