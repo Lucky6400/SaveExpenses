@@ -44,14 +44,15 @@ export const styles = StyleSheet.create({
         color: '#6200EE',
     },
     amount: {
-        fontSize: 16,
+        fontSize: 13,
         fontWeight: 'bold',
         color: '#fff',
         backgroundColor: '#6200EE',
         position: 'absolute',
         top: -25,
         left: -10,
-        padding: 3,
+        paddingVertical: 3,
+        paddingHorizontal: 6,
         borderRadius: 5
     },
     expenseItemActions: {

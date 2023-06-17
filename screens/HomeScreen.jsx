@@ -6,22 +6,55 @@ import RecentExpenses from '../components/RecentExpenses';
 import { ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import CategoryCard from '../components/Home/CategoryCard';
+import { FlatList } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+import { Text } from 'react-native';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation, route }) => {
+    console.log(navigation)
+    const [open, setOpen] = useState(false);
     const openDrawer = () => {
-
+        setOpen(p => !p);
     };
 
-    const closeDrawer = () => {
+    const menuItems = [
+        { id: 'home', title: 'Home', icon: 'home' },
+        { id: 'categories', title: 'Categories', icon: 'category' },
+        { id: 'budgets', title: 'Budgets', icon: 'monetization-on' },
+        { id: 'divider', title: '', icon: '' },
+        { id: 'settings', title: 'Settings', icon: 'settings' },
+        { id: 'about', title: 'About', icon: 'info' },
+    ];
 
+    const renderItem = ({ item }) => {
+        if (item.id === 'divider') {
+            return <View style={styles.divider} />;
+        }
+
+        return (
+            <TouchableOpacity onPress={() => navigation.navigate(item.title)} style={styles.menuItem}>
+                <Icon name={item.icon} color={route.name === item.title ? '#6200EE' : "#505050"} size={24} style={styles.icon} />
+                <Text style={{ ...styles.title, color: route.name === item.title ? '#6200EE' : "#505050" }}>{item.title}</Text>
+            </TouchableOpacity>
+        );
     };
-
     return (
         <>
             <Appbar.Header style={{ backgroundColor: 'rgba(255, 255, 255, 1)' }}>
                 <Appbar.Content color='#000' titleStyle={{ fontWeight: 'bold' }} title="SAVE EXPENSES" />
                 <Appbar.Action color='#979797' icon="menu" onPress={openDrawer} />
             </Appbar.Header>
+            {open ?
+                <View style={styles.drawerStyle}>
+                    <FlatList
+                        data={menuItems}
+                        renderItem={renderItem}
+                        keyExtractor={(item) => item.id}
+                        contentContainerStyle={styles.menuContainer}
+                    />
+                </View>
+                : <></>}
+
             <ScrollView style={styles.container}>
                 <Card style={styles.card}>
                     <LinearGradient colors={['#A56EFF', '#6200EE']} style={styles.cardBackground}>
@@ -101,7 +134,38 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#fff',
         alignItems: 'center'
-    }
+    },
+    drawerStyle: {
+        position: 'absolute',
+        top: 30,
+        left: 0,
+        backgroundColor: '#fff',
+        width: '80%',
+        height: 800,
+        zIndex: 9999
+    },
+    menuContainer: {
+        paddingVertical: 16,
+    },
+    menuItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+    },
+    icon: {
+        marginRight: 16,
+    },
+    title: {
+        fontSize: 14,
+        fontWeight: 'medium',
+        color: '#787878',
+    },
+    divider: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
+        marginVertical: 8,
+    },
 });
 
 export default HomeScreen;
