@@ -7,20 +7,20 @@ import { categories } from '../../data/categories';
 const AddExpenseComponent = ({ handleAddExpense, hideModal }) => {
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
-    const [selectedIcon, setSelectedIcon] = useState('food');
+    const [selectedIcon, setSelectedIcon] = useState('shopping-cart');
 
     const handleSaveExpense = () => {
         const newExpense = {
             id: Date.now().toString(),
             title,
             price,
-            icon: selectedIcon,
+            category: categories.find(v => v.icon === selectedIcon),
         };
 
         handleAddExpense(newExpense);
         setTitle('');
         setPrice('');
-        setSelectedIcon('food');
+        setSelectedIcon('shopping-cart');
     };
 
     return (

@@ -6,15 +6,21 @@ import { dummyExpenses } from '../data/expenses';
 import { styles } from '../styles/Expense';
 import { Button, Provider, Portal } from 'react-native-paper';
 import AddExpenseComponent from '../components/Expenses/AddExpenseComponent';
+import { useDispatch, useSelector } from 'react-redux';
+import { expenseActions } from '../services/expenseSlice';
 
 const ExpensesScreen = () => {
+
   const renderExpenseItem = (expense) => {
+    const dispatch = useDispatch();
     const handleDelete = () => {
       // Handle delete expense logic
+      dispatch(expenseActions.deleteExpense(expense.id))
     };
 
     const handleEdit = () => {
       // Handle edit expense logic
+      
     };
 
     return (
@@ -23,16 +29,18 @@ const ExpensesScreen = () => {
   };
 
   const [visible, setVisible] = useState(false);
-
+  const expenses = useSelector(state => state.expense.expenses);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const containerStyle = { backgroundColor: 'white', padding: 20, width: '80%', borderRadius: 8 };
-
+  const dispatch = useDispatch();
   const handleAddExpense = (newExpense) => {
     // Handle adding the new expense to your expenses list
     console.log('New Expense:', newExpense);
+    dispatch(expenseActions.addExpense(newExpense))
     hideModal();
   };
+  console.log(expenses, "expenses are these")
 
   return (
     <Provider>
@@ -43,7 +51,7 @@ const ExpensesScreen = () => {
       </Portal>
       <View style={styles.container}>
         <Text style={styles.screenTitle}>Expenses</Text>
-        {dummyExpenses.map(renderExpenseItem)}
+        {expenses.map(renderExpenseItem)}
         <TouchableOpacity onPress={showModal} style={styles.addButton}>
           <Icon name="add" size={36} color="white" style={styles.addButtonIcon} />
         </TouchableOpacity>

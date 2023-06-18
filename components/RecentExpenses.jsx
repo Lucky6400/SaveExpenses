@@ -3,12 +3,17 @@ import { View, StyleSheet, FlatList } from 'react-native';
 import { dummyExpenses } from '../data/expenses';
 import ExpenseItem from './ExpenseItem';
 import { styles as expenseStyles } from '../styles/Expense'
+import { useDispatch, useSelector } from 'react-redux';
+import { expenseActions } from '../services/expenseSlice';
 
 const RecentExpenses = () => {
+    const expenses = useSelector(state => state.expense.expenses);
 
     const renderExpenseItem = (expense) => {
+        const dispatch = useDispatch();
         const handleDelete = () => {
             // Handle delete expense logic
+            dispatch(expenseActions.deleteExpense(expense.id))
         };
 
         const handleEdit = () => {
@@ -22,7 +27,7 @@ const RecentExpenses = () => {
 
     return (
         <View style={styles.container}>
-            {dummyExpenses.map(renderExpenseItem)}
+            {expenses.map(renderExpenseItem)}
         </View>
     );
 };

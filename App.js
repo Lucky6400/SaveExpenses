@@ -11,23 +11,46 @@ import { createStackNavigator } from '@react-navigation/stack';
 import CategoriesScreen from './screens/CategoriesScreen';
 import DataScreen from './screens/DataScreen';
 import BudgetsScreen from './screens/BudgetsScreen';
+import { useEffect, useState } from 'react';
+import { Provider } from 'react-redux';
+import { persistor, store } from './app/store';
+import { PersistGate } from 'redux-persist/integration/react'
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    setInterval(() => {
+      setVisible(!visible);
+    }, 2000);
+  }, []);
   return (
-    <NavigationContainer>
-      <StatusBar style="auto" />
-      <Stack.Navigator>
-        <Stack.Screen options={{ headerShown: false }} name="First" component={TabStack} />
-        <Stack.Screen name="Categories" component={CategoriesScreen} />
-        <Stack.Screen name="Settings" component={SettingScreen} />
-        <Stack.Screen name="Budgets" component={BudgetsScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate loading={
+        <Text>Doing something...</Text>
+      } persistor={persistor}>
+        <NavigationContainer>
+          <StatusBar style="auto" />
+          <Stack.Navigator>
+            <Stack.Screen options={{ headerShown: false }} name="First" component={TabStack} />
+            <Stack.Screen name="Categories" component={CategoriesScreen} />
+            <Stack.Screen name="Settings" component={SettingScreen} />
+            <Stack.Screen name="Budgets" component={BudgetsScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
   );
 }
+
+const styles = StyleSheet.create({
+  lottie: {
+    width: 100,
+    height: 100,
+  },
+});
 
 
 function TabStack() {
