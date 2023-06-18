@@ -11,6 +11,9 @@ import { Text } from 'react-native';
 import {
     LineChart
 } from "react-native-chart-kit";
+import { currencies } from '../data/currency';
+
+
 
 const HomeScreen = ({ navigation, route }) => {
     console.log(navigation)
@@ -78,6 +81,7 @@ const HomeScreen = ({ navigation, route }) => {
                 : <></>}
 
             <ScrollView style={styles.container}>
+                
                 {/* <Card style={styles.card}>
                     <LinearGradient colors={['#A56EFF', '#6200EE']} style={styles.cardBackground}>
                         <Card.Content>
@@ -110,7 +114,7 @@ const HomeScreen = ({ navigation, route }) => {
                     }}
                     width={Dimensions.get("window").width} // from react-native
                     height={220}
-                    yAxisLabel="₹"
+                    yAxisLabel={currencies.inr}
                     yAxisSuffix=""
                     yAxisInterval={1} // optional, defaults to 1
                     chartConfig={chartConfig}

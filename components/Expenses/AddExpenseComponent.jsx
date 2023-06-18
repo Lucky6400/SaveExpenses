@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { categories } from '../../data/categories';
 
 const AddExpenseComponent = ({ handleAddExpense, hideModal }) => {
     const [title, setTitle] = useState('');
@@ -43,10 +44,12 @@ const AddExpenseComponent = ({ handleAddExpense, hideModal }) => {
                 selectedValue={selectedIcon}
                 onValueChange={(itemValue) => setSelectedIcon(itemValue)}
             >
-                <Picker.Item label="Food" value="food" />
-                <Picker.Item label="Shopping" value="shopping-cart" />
+                {categories.map(v => (
+                    <Picker.Item key={v.name + Date.now()} label={v.name} value={v.icon} />
+                ))}
+                {/* <Picker.Item label="Shopping" value="shopping-cart" />
                 <Picker.Item label="Home" value="home" />
-                <Picker.Item label="Gift" value="wallet-giftcard" />
+                <Picker.Item label="Gift" value="wallet-giftcard" /> */}
             </Picker>
             <TouchableOpacity style={styles.saveButton} onPress={handleSaveExpense}>
                 <Text style={styles.saveButtonText}>Save Expense</Text>

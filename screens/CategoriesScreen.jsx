@@ -8,7 +8,7 @@ const CategoriesScreen = () => {
   const renderCategoryItem = ({ item }) => {
     return (
       <TouchableOpacity style={styles.categoryItem}>
-        <View style={[styles.iconContainer, { backgroundColor: '#6200EE' }]}>
+        <View style={[styles.iconContainer, { backgroundColor: item.color }]}>
           <Icon name={item.icon} size={24} style={styles.icon} />
         </View>
         <Text style={styles.title}>{item.name}</Text>

@@ -9,6 +9,8 @@ import ExpensesScreen from './screens/ExpensesScreen';
 import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
 import CategoriesScreen from './screens/CategoriesScreen';
+import DataScreen from './screens/DataScreen';
+import BudgetsScreen from './screens/BudgetsScreen';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -20,6 +22,8 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen options={{ headerShown: false }} name="First" component={TabStack} />
         <Stack.Screen name="Categories" component={CategoriesScreen} />
+        <Stack.Screen name="Settings" component={SettingScreen} />
+        <Stack.Screen name="Budgets" component={BudgetsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -58,11 +62,11 @@ function TabStack() {
         />
 
         <Tab.Screen
-          name="Settings"
-          component={SettingScreen}
+          name="Data"
+          component={DataScreen}
           options={{
             tabBarIcon: ({ color, size, focused }) => (
-              <Icon name="cog" size={24} color={focused ? '#000' : "#808080"} />
+              <Icon name="area-chart" size={24} color={focused ? '#000' : "#808080"} />
             ),
           }}
         />
