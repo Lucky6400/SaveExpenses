@@ -10,24 +10,15 @@ const RecentExpenses = () => {
     const expenses = useSelector(state => state.expense.expenses);
 
     const renderExpenseItem = (expense) => {
-        const dispatch = useDispatch();
-        const handleDelete = () => {
-            // Handle delete expense logic
-            dispatch(expenseActions.deleteExpense(expense.id))
-        };
-
-        const handleEdit = () => {
-            // Handle edit expense logic
-        };
 
         return (
-            <ExpenseItem expense={expense} handleDelete={handleDelete} handleEdit={handleEdit} key={expense.id} styles={expenseStyles} />
+            <ExpenseItem expense={expense} key={expense.id} styles={expenseStyles} />
         );
     };
 
     return (
         <View style={styles.container}>
-            {expenses.map(renderExpenseItem)}
+            {expenses.slice(0,3).map(renderExpenseItem)}
         </View>
     );
 };

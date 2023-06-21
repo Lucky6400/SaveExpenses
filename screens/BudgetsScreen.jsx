@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { FAB, Dialog, Portal, Button, Provider } from 'react-native-paper';
 import { currencies } from '../data/currency';
+import { useDispatch, useSelector } from 'react-redux';
+import { expenseActions } from '../services/expenseSlice';
 
 const BudgetsScreen = () => {
     const [isDialogVisible, setDialogVisible] = useState(false);
-    const [budgets, setBudgets] = useState([]);
+    const budgets = useSelector(s => s.expense.budgets);
+    const currentBudget = useSelector(s => s.expense.currentBudget);
+
     const [budgetName, setBudgetName] = useState('');
     const [budgetAmount, setBudgetAmount] = useState('');
 
@@ -15,7 +19,7 @@ const BudgetsScreen = () => {
         setBudgetName('');
         setBudgetAmount('');
     };
-
+    const dispatch = useDispatch();
     const handleAddBudget = () => {
         if (budgetName && budgetAmount) {
             const newBudget = {
@@ -24,14 +28,21 @@ const BudgetsScreen = () => {
                 amount: budgetAmount,
             };
 
-            setBudgets([...budgets, newBudget]);
+            // setBudgets([...budgets, newBudget]);
+            dispatch(expenseActions.addBudget(newBudget));
             hideDialog();
         }
     };
 
     const handleDeleteBudget = (budgetId) => {
-        setBudgets(budgets.filter((budget) => budget.id !== budgetId));
+        dispatch(expenseActions.deleteBudget(budgetId));
     };
+
+    const setDefault = (amount) => {
+        
+        console.log("amount -->", amount);
+        dispatch(expenseActions.setCurrentBudget(parseInt(amount)));
+    }
 
     const renderBudgetItem = (budget) => {
         return (
@@ -45,9 +56,14 @@ const BudgetsScreen = () => {
                     <Button icon="delete" onPress={() => handleDeleteBudget(budget.id)}>
                         Delete
                     </Button>
-                    <Button icon="cash-check">
-                        Set as default
-                    </Button>
+                    {budget.amount != currentBudget ?
+                        <Button onPress={() => setDefault(budget.amount)} icon="cash-check">
+                            Set as default
+                        </Button>
+                        : <Button icon="cash-check">
+                            Current Budget
+                        </Button>}
+
                 </View>
             </View>
         );

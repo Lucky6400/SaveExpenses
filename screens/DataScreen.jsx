@@ -8,16 +8,26 @@ import { PieChart } from 'react-native-chart-kit';
 import { Dimensions } from "react-native";
 import { categories } from '../data/categories';
 import { ScrollView } from 'react-native';
+import { useSelector } from 'react-redux';
+import { getExpensesByCategory, totalSum } from '../helpers/ChartData';
 const screenWidth = Dimensions.get("window").width;
 
 const DataScreen = () => {
-  const data = categories.slice(0, 5).map(category => ({
-    name: category.name,
-    amount: Math.floor(Math.random() * 1000), // Random amount spent
-    color: category.color,
+  const expenses = useSelector(s => s.expense.expenses)
+  const expObj = getExpensesByCategory(expenses);
+  const data = Object.keys(expObj).slice(0, 5).map(v => ({
+    name: v,
+    amount: expObj[v].amount, // Random amount spent
+    color: expObj[v].color,
     legendFontColor: "#7F7F7F",
     legendFontSize: 15
   }));
+
+  const todayExp = expenses.filter(v => new Date(v.date).getDate() === new Date().getDate());
+  console.log("todayExp", todayExp);
+  const monthExp = expenses.filter(v => new Date(v.date).getMonth() === new Date().getMonth());
+  const totalSpentToday = totalSum(todayExp);
+  const totalSpentMonth = totalSum(monthExp);
 
   const chartConfig = {
     backgroundGradientFrom: "#1E2923",
@@ -31,7 +41,7 @@ const DataScreen = () => {
   };
   return (
     <ScrollView style={globalStyles.container}>
-      <DataCard />
+      <DataCard totalSpentMonth={totalSpentMonth} totalSpentToday={totalSpentToday} />
       <Card style={globalStyles.chartCard}>
         <Text style={globalStyles.secCardHead}>Category wise expenses</Text>
         <PieChart

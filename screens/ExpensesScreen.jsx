@@ -12,19 +12,10 @@ import { expenseActions } from '../services/expenseSlice';
 const ExpensesScreen = () => {
 
   const renderExpenseItem = (expense) => {
-    const dispatch = useDispatch();
-    const handleDelete = () => {
-      // Handle delete expense logic
-      dispatch(expenseActions.deleteExpense(expense.id))
-    };
-
-    const handleEdit = () => {
-      // Handle edit expense logic
-      
-    };
+    
 
     return (
-      <ExpenseItem expense={expense} handleDelete={handleDelete} handleEdit={handleEdit} key={expense.id} styles={styles} />
+      <ExpenseItem expense={expense} key={expense.id} styles={styles} />
     );
   };
 

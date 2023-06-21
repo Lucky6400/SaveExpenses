@@ -15,6 +15,7 @@ const AddExpenseComponent = ({ handleAddExpense, hideModal }) => {
             title,
             price,
             category: categories.find(v => v.icon === selectedIcon),
+            date: new Date().toString(),
         };
 
         handleAddExpense(newExpense);

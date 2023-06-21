@@ -79,4 +79,11 @@ export const styles = StyleSheet.create({
     addButtonIcon: {
         //transform: [{ rotate: '45deg' }],
     },
+    picker: {
+        marginBottom: 16,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        borderRadius: 4,
+        width: '70%'
+    },
 });

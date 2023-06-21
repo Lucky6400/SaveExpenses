@@ -12,11 +12,16 @@ import {
     LineChart
 } from "react-native-chart-kit";
 import { currencies } from '../data/currency';
-
-
+import { useSelector } from 'react-redux';
+import { getExpensesByMonth } from '../helpers/ChartData';
 
 const HomeScreen = ({ navigation, route }) => {
     console.log(navigation)
+    const expenses = useSelector(state => state.expense.expenses);
+    const expObj = getExpensesByMonth(expenses);
+    const months = Object.keys(expObj);
+    const amounts = Object.values(expObj);
+    console.log(expObj);
     const chartConfig = {
         backgroundColor: "#e26a00",
         backgroundGradientFrom: "#fb8c00",
@@ -43,8 +48,6 @@ const HomeScreen = ({ navigation, route }) => {
         { id: 'categories', title: 'Categories', icon: 'category' },
         { id: 'budgets', title: 'Budgets', icon: 'monetization-on' },
         { id: 'divider', title: '', icon: '' },
-        { id: 'settings', title: 'Settings', icon: 'settings' },
-        { id: 'about', title: 'About', icon: 'info' },
     ];
 
     const renderItem = ({ item }) => {
@@ -63,10 +66,10 @@ const HomeScreen = ({ navigation, route }) => {
         <>
             <Appbar.Header style={{ backgroundColor: 'rgba(255, 255, 255, 1)' }}>
                 <Appbar.Content color='#000' titleStyle={{ fontWeight: 'bold' }} title={<Text style={{ fontWeight: 'bold', fontSize: 20 }}>
-                    <Text style={{ color: "#6200EE"}}>
+                    <Text style={{ color: "#6200EE" }}>
                         SAVE
                     </Text>
-                   {" "} EXPENSES</Text>} />
+                    {" "} EXPENSES</Text>} />
                 <Appbar.Action color='#979797' icon="menu" onPress={openDrawer} />
             </Appbar.Header>
             {open ?
@@ -81,7 +84,7 @@ const HomeScreen = ({ navigation, route }) => {
                 : <></>}
 
             <ScrollView style={styles.container}>
-                
+
                 {/* <Card style={styles.card}>
                     <LinearGradient colors={['#A56EFF', '#6200EE']} style={styles.cardBackground}>
                         <Card.Content>
@@ -98,17 +101,10 @@ const HomeScreen = ({ navigation, route }) => {
 
                     fromZero
                     data={{
-                        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"].slice(-6),
+                        labels: months.slice(-6),
                         datasets: [
                             {
-                                data: [
-                                    20000,
-                                    7500,
-                                    4400,
-                                    7200,
-                                    8004,
-                                    5600
-                                ]
+                                data: amounts.slice(-6)
                             }
                         ]
                     }}

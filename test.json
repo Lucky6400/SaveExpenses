@@ -1,0 +1,46 @@
+[
+    {
+        "category": {
+            "color": "#FF9F40",
+            "icon": "flash-on",
+            "name": "Utilities"
+        },
+        "date": "22/6/2023, 1:10:33 am",
+        "id": "1687376433761",
+        "price": "1400",
+        "title": "SmartWatch"
+    },
+    {
+        "category": {
+            "color": "#FF6384",
+            "icon": "shopping-cart",
+            "name": "Groceries"
+        },
+        "date": "22/6/2023, 12:48:23 am",
+        "id": "1687375103591",
+        "price": "287",
+        "title": "Bhujia Haldiram"
+    },
+    {
+        "category": {
+            "color": "#FFCD56",
+            "icon": "home",
+            "name": "Rent/Mortgage"
+        },
+        "date": "22/5/2023, 1:07:49 am",
+        "id": "1687376269663",
+        "price": "10250",
+        "title": "Rent"
+    },
+    {
+        "category": {
+            "color": "#FF6384",
+            "icon": "shopping-cart",
+            "name": "Groceries"
+        },
+        "date": "22/8/2023, 1:09:06 am",
+        "id": "1687376346079",
+        "price": "344",
+        "title": "Muesli"
+    }
+]

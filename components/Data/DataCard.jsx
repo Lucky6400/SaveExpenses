@@ -3,12 +3,13 @@ import React from 'react'
 import { StyleSheet } from 'react-native';
 import { Card } from 'react-native-paper';
 import { currencies } from '../../data/currency';
+import { useSelector } from 'react-redux';
 
-const DataCard = () => {
-    const totalSpent = 1500;
-    const currentBudget = 5000;
+const DataCard = ({ totalSpentToday, totalSpentMonth }) => {
+    const currentBudget = useSelector(s => s.expense.currentBudget)
+    const totalSpent = totalSpentMonth;
     const remainingAmount = currentBudget - totalSpent;
-    const amountSpentToday = 100;
+    const amountSpentToday = totalSpentToday;
     const today = new Date().toDateString().substring(4);
     return (
         <Card style={styles.card}>
