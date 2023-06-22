@@ -8,6 +8,7 @@ import CategoryCard from '../components/Home/CategoryCard';
 import { FlatList } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { Text } from 'react-native';
+import { months as staticMonths } from '../data/months'
 import {
     LineChart
 } from "react-native-chart-kit";
@@ -21,7 +22,7 @@ const HomeScreen = ({ navigation, route }) => {
     const expObj = getExpensesByMonth(expenses);
     const months = Object.keys(expObj);
     const amounts = Object.values(expObj);
-    console.log(expObj);
+    // console.log(expObj);
     const chartConfig = {
         backgroundColor: "#e26a00",
         backgroundGradientFrom: "#fb8c00",
@@ -101,10 +102,10 @@ const HomeScreen = ({ navigation, route }) => {
 
                     fromZero
                     data={{
-                        labels: months.slice(-6),
+                        labels: months.length > 0 ? months.slice(-6) : staticMonths.slice(-6),
                         datasets: [
                             {
-                                data: amounts.slice(-6)
+                                data: amounts.length > 0 ? amounts.slice(-6) : [0, 0, 0, 0, 0, 0]
                             }
                         ]
                     }}

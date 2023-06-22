@@ -1,40 +1,46 @@
 export function getExpensesByMonth(expenses) {
     const modifiedObject = {};
+    if (expenses.length > 0) {
 
-    expenses.forEach(transaction => {
-        const transactionDate = new Date(transaction.date);
-        const months = [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
-        ];
+        expenses.forEach(transaction => {
+            const transactionDate = new Date(transaction.date);
+            const months = [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+            ];
 
-        console.log(months);
+            console.log(months);
 
-        const month = months[transactionDate.getMonth()];
-        const amount = parseInt(transaction.price);
+            const month = months[transactionDate.getMonth()];
+            const amount = parseInt(transaction.price);
 
-        if (modifiedObject.hasOwnProperty(month)) {
-            modifiedObject[month] += amount;
-        } else {
-            modifiedObject[month] = amount;
-        }
-    });
+            if (modifiedObject.hasOwnProperty(month)) {
+                modifiedObject[month] += amount;
+            } else {
+                modifiedObject[month] = amount;
+            }
+        });
 
-    return modifiedObject;
+        return modifiedObject;
+    }
+
+    return modifiedObject
 }
 
 export function getExpensesByCategory(expenses) {
     const modifiedObject = {};
+    if(expenses.length === 0) return modifiedObject;
+
 
     expenses.forEach(transaction => {
         const category = transaction.category.name;

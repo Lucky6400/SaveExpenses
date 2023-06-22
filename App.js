@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { persistor, store } from './app/store';
 import { PersistGate } from 'redux-persist/integration/react'
+import { ActivityIndicator } from 'react-native';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -29,7 +30,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={
-        <Text>Doing something...</Text>
+        <ActivityIndicator size="large" color="#00ff00" />
       } persistor={persistor}>
         <NavigationContainer>
           <StatusBar style="auto" />
