@@ -8,11 +8,12 @@ import { Button, Provider, Portal } from 'react-native-paper';
 import AddExpenseComponent from '../components/Expenses/AddExpenseComponent';
 import { useDispatch, useSelector } from 'react-redux';
 import { expenseActions } from '../services/expenseSlice';
+import { ScrollView } from 'react-native';
 
 const ExpensesScreen = () => {
 
   const renderExpenseItem = (expense) => {
-    
+
 
     return (
       <ExpenseItem expense={expense} key={expense.id} styles={styles} />
@@ -35,6 +36,7 @@ const ExpensesScreen = () => {
 
   return (
     <Provider>
+
       <Portal>
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
           <AddExpenseComponent hideModal={hideModal} handleAddExpense={handleAddExpense} />
@@ -42,7 +44,9 @@ const ExpensesScreen = () => {
       </Portal>
       <View style={styles.container}>
         <Text style={styles.screenTitle}>Expenses</Text>
-        {expenses.map(renderExpenseItem)}
+        <ScrollView>
+          {expenses.map(renderExpenseItem)}
+        </ScrollView>
         <TouchableOpacity onPress={showModal} style={styles.addButton}>
           <Icon name="add" size={36} color="white" style={styles.addButtonIcon} />
         </TouchableOpacity>

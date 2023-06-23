@@ -22,7 +22,8 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 16,
         borderRadius: 8,
         backgroundColor: '#F3EFFF',
-        position: 'relative'
+        position: 'relative',
+        marginTop: 20
     },
     expenseItemContent: {
         flexDirection: 'row',

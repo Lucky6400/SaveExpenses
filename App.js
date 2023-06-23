@@ -33,7 +33,7 @@ export default function App() {
         <ActivityIndicator size="large" color="#00ff00" />
       } persistor={persistor}>
         <NavigationContainer>
-          <StatusBar style="auto" />
+          <StatusBar style={"dark"} />
           <Stack.Navigator>
             <Stack.Screen options={{ headerShown: false }} name="First" component={TabStack} />
             <Stack.Screen name="Categories" component={CategoriesScreen} />

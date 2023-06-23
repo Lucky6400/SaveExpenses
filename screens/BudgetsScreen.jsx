@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ScrollView } from 'react-native';
 import { FAB, Dialog, Portal, Button, Provider } from 'react-native-paper';
 import { currencies } from '../data/currency';
 import { useDispatch, useSelector } from 'react-redux';
@@ -71,7 +71,7 @@ const BudgetsScreen = () => {
 
     return (
         <Provider>
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 {budgets.map(renderBudgetItem)}
 
                 <Portal>
@@ -104,7 +104,7 @@ const BudgetsScreen = () => {
                 </Portal>
 
                 <FAB icon="plus" color="#fff" onPress={showDialog} style={styles.fab} />
-            </View>
+            </ScrollView>
         </Provider>
     );
 };
