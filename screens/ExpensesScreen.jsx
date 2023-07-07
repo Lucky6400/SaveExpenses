@@ -13,8 +13,6 @@ import { ScrollView } from 'react-native';
 const ExpensesScreen = () => {
 
   const renderExpenseItem = (expense) => {
-
-
     return (
       <ExpenseItem expense={expense} key={expense.id} styles={styles} />
     );

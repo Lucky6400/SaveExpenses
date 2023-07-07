@@ -35,7 +35,7 @@ export default function App() {
         <NavigationContainer>
           <StatusBar style={"dark"} />
           <Stack.Navigator>
-            <Stack.Screen options={{ headerShown: false }} name="First" component={TabStack} />
+            <Stack.Screen options={{ headerTitle: "SaveExpenses", headerShown: false }} name="First" component={TabStack} />
             <Stack.Screen name="Categories" component={CategoriesScreen} />
             <Stack.Screen name="Settings" component={SettingScreen} />
             <Stack.Screen name="Budgets" component={BudgetsScreen} />
@@ -61,7 +61,8 @@ function TabStack() {
       <Tab.Navigator
         barStyle={{ backgroundColor: '#fff' }}
         screenOptions={({ route }) => ({
-          tabBarLabel: <Text style={{ fontWeight: 500 }}>{route.name}</Text>
+          tabBarLabel: <Text style={{ fontWeight: 500 }}>{route.name}</Text>,
+          
         })}
         sceneAnimationEnabled
       >
@@ -71,7 +72,7 @@ function TabStack() {
           options={{
             tabBarIcon: ({ color, size, focused }) => (
               <Icon name="home" size={24} color={focused ? '#000' : "#808080"} />
-            ),
+            )
           }}
         />
 

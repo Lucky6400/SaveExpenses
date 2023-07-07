@@ -39,7 +39,7 @@ const BudgetsScreen = () => {
     };
 
     const setDefault = (amount) => {
-        
+
         console.log("amount -->", amount);
         dispatch(expenseActions.setCurrentBudget(parseInt(amount)));
     }
@@ -53,14 +53,14 @@ const BudgetsScreen = () => {
                 </View>
                 <View>
 
-                    <Button icon="delete" onPress={() => handleDeleteBudget(budget.id)}>
+                    <Button textColor='#b90808' icon="delete" onPress={() => handleDeleteBudget(budget.id)}>
                         Delete
                     </Button>
                     {budget.amount != currentBudget ?
-                        <Button onPress={() => setDefault(budget.amount)} icon="cash-check">
+                        <Button textColor='#02479b' onPress={() => setDefault(budget.amount)} icon="cash-check">
                             Set as default
                         </Button>
-                        : <Button icon="cash-check">
+                        : <Button textColor='#039d00' icon="cash-check">
                             Current Budget
                         </Button>}
 
@@ -71,8 +71,11 @@ const BudgetsScreen = () => {
 
     return (
         <Provider>
-            <ScrollView style={styles.container}>
-                {budgets.map(renderBudgetItem)}
+            <View style={styles.container}>
+                <ScrollView>
+                    {budgets.map(renderBudgetItem)}
+                </ScrollView>
+
 
                 <Portal>
                     <Dialog style={{ backgroundColor: '#fff' }} visible={isDialogVisible} onDismiss={hideDialog}>
@@ -97,14 +100,14 @@ const BudgetsScreen = () => {
                             />
                         </Dialog.Content>
                         <Dialog.Actions>
-                            <Button onPress={hideDialog}>Cancel</Button>
-                            <Button onPress={handleAddBudget}>Add</Button>
+                            <Button textColor='#000' onPress={hideDialog}>Cancel</Button>
+                            <Button textColor='#000' onPress={handleAddBudget}>Add</Button>
                         </Dialog.Actions>
                     </Dialog>
                 </Portal>
 
                 <FAB icon="plus" color="#fff" onPress={showDialog} style={styles.fab} />
-            </ScrollView>
+            </View>
         </Provider>
     );
 };
@@ -149,6 +152,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 16,
         fontWeight: 'bold',
+        color: '#000'
     }
 });
 

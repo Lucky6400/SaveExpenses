@@ -60,6 +60,7 @@ export default function ExpenseItem({ styles, expense }) {
                         <>
                             <Text style={styles.title}>{expense.title}</Text>
                             <Text style={styles.category}>{expense.category.name}</Text>
+                            <Text>{expense.date}</Text>
                         </>
                     )}
                 </View>

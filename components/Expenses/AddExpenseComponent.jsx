@@ -4,21 +4,26 @@ import { Picker } from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { categories } from '../../data/categories';
 import { months } from '../../data/months';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const AddExpenseComponent = ({ handleAddExpense, hideModal }) => {
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
     const [selectedIcon, setSelectedIcon] = useState('shopping-cart');
     const [showDatePicker, setShowDatePicker] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(new Date());
-
+    const [selectedDate, setSelectedDate] = useState(new Date().toDateString());
+    const [error, setError] = useState('')
     const handleSaveExpense = () => {
+        if (title === '' || price === '') {
+            setError('Please enter full details');
+            return undefined;
+        }
         const newExpense = {
             id: Date.now().toString(),
             title,
             price,
             category: categories.find(v => v.icon === selectedIcon),
-            date: selectedDate.toString(),
+            date: selectedDate,
         };
 
         handleAddExpense(newExpense);
@@ -26,79 +31,7 @@ const AddExpenseComponent = ({ handleAddExpense, hideModal }) => {
         setPrice('');
         setSelectedIcon('shopping-cart');
     };
-
-    const handleDateSelection = (date) => {
-        setSelectedDate(new Date(selectedDate.getFullYear(), selectedDate.getMonth(), date));
-        // setShowDatePicker(false);
-    };
-
-    const handleMonthSelection = (month) => {
-        setSelectedDate(new Date(selectedDate.getFullYear(), month, selectedDate.getDate()));
-        //  setShowDatePicker(false);
-    };
-
-    const handleYearSelection = (year) => {
-        setSelectedDate(new Date(year, selectedDate.getMonth(), selectedDate.getDate()));
-        //   setShowDatePicker(false);
-    };
-
-    const renderDateOptions = () => {
-        const options = [];
-        const daysInMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 0).getDate();
-
-        for (let i = 1; i <= daysInMonth; i++) {
-            options.push(
-                <TouchableOpacity
-                    key={`date_${i}`}
-                    style={styles.dateOption}
-                    onPress={() => handleDateSelection(i)}
-                >
-                    <Text style={styles.textInside}>{i}</Text>
-                </TouchableOpacity>
-            );
-        }
-
-        return options;
-    };
-
-    const renderMonthOptions = () => {
-        const options = [];
-
-        for (let i = 0; i < 12; i++) {
-            options.push(
-                <TouchableOpacity
-                    key={`month_${i}`}
-                    style={styles.monthOption}
-                    onPress={() => handleMonthSelection(i)}
-                >
-                    <Text style={styles.textInside}>{months[i]}</Text>
-                </TouchableOpacity>
-            );
-        }
-
-        return options;
-    };
-
-    const renderYearOptions = () => {
-        const options = [];
-        const currentYear = new Date().getFullYear();
-        const startYear = currentYear - 10;
-        const endYear = currentYear + 10;
-
-        for (let i = startYear; i <= endYear; i++) {
-            options.push(
-                <TouchableOpacity
-                    key={`year_${i}`}
-                    style={styles.yearOption}
-                    onPress={() => handleYearSelection(i)}
-                >
-                    <Text style={styles.textInside}>{i}</Text>
-                </TouchableOpacity>
-            );
-        }
-
-        return options;
-    };
+ 
 
     return (
         <View style={styles.container}>
@@ -126,7 +59,7 @@ const AddExpenseComponent = ({ handleAddExpense, hideModal }) => {
                 ))}
             </Picker>
             <TouchableOpacity style={styles.dateButton} onPress={() => setShowDatePicker(true)}>
-                <Text style={styles.saveButtonText}> Select Date ({selectedDate.toDateString()})</Text>
+                <Text style={styles.saveButtonText}> Select Date ({selectedDate})</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.saveButton} onPress={handleSaveExpense}>
@@ -136,29 +69,20 @@ const AddExpenseComponent = ({ handleAddExpense, hideModal }) => {
                 <Text style={styles.saveButtonText}>Back</Text>
             </TouchableOpacity>
 
+            <Text style={{ color: 'red' }}>
+                {error && error}
+            </Text>
             {/* Custom Date Picker Modal */}
-            <Modal visible={showDatePicker} transparent>
-                <View style={styles.datePickerModal}>
-                    <View style={styles.datePickerContainer}>
-                        <TouchableOpacity style={styles.dateCont} onPress={() => setShowDatePicker(true)}>
-                            <Text style={styles.dateText}>{selectedDate.toDateString()}</Text>
-                        </TouchableOpacity>
-                        <ScrollView style={styles.pickerColumn}>
-                            {renderDateOptions()}
-                        </ScrollView>
-                        <ScrollView style={styles.pickerColumn}>
-                            {renderMonthOptions()}
-                        </ScrollView>
-                        <ScrollView style={styles.pickerColumn}>
-                            {renderYearOptions()}
-                        </ScrollView>
-                        <TouchableOpacity style={styles.closeButton} onPress={() => setShowDatePicker(false)}>
-                            <Text style={styles.saveButtonText}>Close</Text>
-                        </TouchableOpacity>
-                    </View>
+            {showDatePicker ?
+                <DateTimePicker value={new Date()}
+                
+                onChange={(e,s) => {
+                    setSelectedDate(s.toDateString());
+                    setShowDatePicker(false);
+                }}/>
+                : <></>}
 
-                </View>
-            </Modal>
+
         </View>
     );
 };
