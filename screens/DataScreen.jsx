@@ -15,7 +15,7 @@ const screenWidth = Dimensions.get("window").width;
 const DataScreen = () => {
   const expenses = useSelector(s => s.expense.expenses)
   const expObj = getExpensesByCategory(expenses);
-  const data = Object.keys(expObj).slice(0, 5).map(v => ({
+  const data = Object.keys(expObj).map(v => ({
     name: v,
     amount: expObj[v].amount, // Random amount spent
     color: expObj[v].color,

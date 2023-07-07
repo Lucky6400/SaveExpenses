@@ -77,8 +77,8 @@ const AddExpenseComponent = ({ handleAddExpense, hideModal }) => {
                 <DateTimePicker value={new Date()}
                 
                 onChange={(e,s) => {
-                    setSelectedDate(s.toDateString());
                     setShowDatePicker(false);
+                    setSelectedDate(s.toDateString());
                 }}/>
                 : <></>}
 

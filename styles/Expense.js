@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     screenTitle: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginTop: 36,
+        marginTop: '16%',
         marginBottom: 24,
         color: '#6200EE',
     },
