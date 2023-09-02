@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
-import { dummyExpenses } from '../data/expenses';
+import { View, StyleSheet } from 'react-native';
 import ExpenseItem from './ExpenseItem';
 import { styles as expenseStyles } from '../styles/Expense'
-import { useDispatch, useSelector } from 'react-redux';
-import { expenseActions } from '../services/expenseSlice';
+import { useSelector } from 'react-redux';
+import { Text } from 'react-native-paper';
 
 const RecentExpenses = () => {
     const expenses = useSelector(state => state.expense.expenses);
@@ -18,7 +17,8 @@ const RecentExpenses = () => {
 
     return (
         <View style={styles.container}>
-            {expenses.slice(0,3).map(renderExpenseItem)}
+            <Text>Recent</Text>
+            {expenses.slice(0, 3).map(renderExpenseItem)}
         </View>
     );
 };

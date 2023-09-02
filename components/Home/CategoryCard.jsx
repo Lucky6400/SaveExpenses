@@ -8,18 +8,23 @@ import { categories } from '../../data/categories';
 export default function CategoryCard({ styles, navigation }) {
     return (
         <Card style={styles.card}>
-            <LinearGradient colors={['#A56EFF', '#6200EE']} style={styles.cardBackground}>
+            <LinearGradient colors={['#494949', '#1a1a1a']} style={styles.cardBackground}>
                 <Card.Content>
                     <Title style={styles.cardTitle}>Categories</Title>
                     <View style={styles.categoryContainer}>
                         {categories.slice(0, 4).map(v => (
 
                             <TouchableRipple key={v.name + Date.now()} style={styles.categoryButton} onPress={() => console.log('Food')}>
-                                <Icon name={v.icon} color='#6200EE' size={32} />
+                                <View style={{ flexDirection: 'row', justifyContent: 'flex-start', width: '80%' }}>
+                                    <Icon name={v.icon} color={v.color} size={24} />
+                                    <Text>{v.name}</Text>
+                                </View>
                             </TouchableRipple>
                         ))}
 
-                        <Button icon="chevron-right" mode="contained" onPress={() => navigation.navigate("Categories")} style={styles.viewAllButton}>
+                        <Button icon="chevron-right" mode="contained" onPress={() => navigation.navigate("Categories")}
+                            textColor='#000'
+                            style={{ marginVertical: 10, backgroundColor: '#FFF' }}>
                             View All
                         </Button>
                     </View>

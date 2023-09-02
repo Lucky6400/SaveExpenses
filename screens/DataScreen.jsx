@@ -10,9 +10,9 @@ import { categories } from '../data/categories';
 import { ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { getExpensesByCategory, totalSum } from '../helpers/ChartData';
-const screenWidth = Dimensions.get("window").width;
 
 const DataScreen = () => {
+  const screenWidth = Dimensions.get("window").width;
   const expenses = useSelector(s => s.expense.expenses)
   const expObj = getExpensesByCategory(expenses);
   const data = Object.keys(expObj).map(v => ({
@@ -23,8 +23,8 @@ const DataScreen = () => {
     legendFontSize: 15
   }));
 
-  const todayExp = expenses.filter(v => new Date(v.date).getDate() === new Date().getDate());
-  console.log("todayExp", todayExp);
+  const todayExp = expenses.filter(v => new Date(v.date).toDateString() === new Date().toDateString());
+  //console.log("todayExp", todayExp);
   const monthExp = expenses.filter(v => new Date(v.date).getMonth() === new Date().getMonth());
   const totalSpentToday = totalSum(todayExp);
   const totalSpentMonth = totalSum(monthExp);
@@ -41,7 +41,6 @@ const DataScreen = () => {
   };
   return (
     <ScrollView style={globalStyles.container}>
-      <DataCard totalSpentMonth={totalSpentMonth} totalSpentToday={totalSpentToday} />
       <Card style={globalStyles.chartCard}>
         <Text style={globalStyles.secCardHead}>Category wise expenses</Text>
         <PieChart
@@ -51,8 +50,9 @@ const DataScreen = () => {
           chartConfig={chartConfig}
           accessor={"amount"}
           backgroundColor={"transparent"}
-          center={[70, 10]}
+          center={[90, 10]}
           hasLegend={false}
+          
         />
 
         <View style={styles.legendContainer}>
@@ -67,6 +67,7 @@ const DataScreen = () => {
         </View>
 
       </Card>
+      <DataCard totalSpentMonth={totalSpentMonth} totalSpentToday={totalSpentToday} />
     </ScrollView>
   );
 };

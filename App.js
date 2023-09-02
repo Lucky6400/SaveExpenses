@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import HomeScreen from './screens/HomeScreen';
 import SettingScreen from './screens/SettingScreen';
@@ -11,7 +11,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import CategoriesScreen from './screens/CategoriesScreen';
 import DataScreen from './screens/DataScreen';
 import BudgetsScreen from './screens/BudgetsScreen';
-import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { persistor, store } from './app/store';
 import { PersistGate } from 'redux-persist/integration/react'
@@ -21,12 +20,7 @@ const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    setInterval(() => {
-      setVisible(!visible);
-    }, 2000);
-  }, []);
+
   return (
     <Provider store={store}>
       <PersistGate loading={
@@ -55,24 +49,28 @@ const styles = StyleSheet.create({
 
 
 function TabStack() {
+  const height = Dimensions.get("window").height;
   return (
 
     <>
       <Tab.Navigator
-        barStyle={{ backgroundColor: '#fff' }}
+        barStyle={{ backgroundColor: '#000', width: '90%', alignSelf: 'center', borderRadius: 999, overflow: 'hidden', marginTop: -height/9, marginBottom: 10 }}
         screenOptions={({ route }) => ({
-          tabBarLabel: <Text style={{ fontWeight: 500 }}>{route.name}</Text>,
-          
+          tabBarLabel: <Text style={{ fontWeight: 500, color: 'white' }}>{route.name}</Text>
         })}
+        style={{ backgroundColor: 'transparent' }}
+
         sceneAnimationEnabled
       >
         <Tab.Screen
           name="Home"
           component={HomeScreen}
+
           options={{
             tabBarIcon: ({ color, size, focused }) => (
               <Icon name="home" size={24} color={focused ? '#000' : "#808080"} />
-            )
+            ),
+
           }}
         />
 
@@ -93,6 +91,7 @@ function TabStack() {
             tabBarIcon: ({ color, size, focused }) => (
               <Icon name="area-chart" size={24} color={focused ? '#000' : "#808080"} />
             ),
+
           }}
         />
 

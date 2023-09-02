@@ -15,9 +15,10 @@ import {
 import { currencies } from '../data/currency';
 import { useSelector } from 'react-redux';
 import { getExpensesByMonth } from '../helpers/ChartData';
+import { useEffect } from 'react';
 
 const HomeScreen = ({ navigation, route }) => {
-    console.log(navigation)
+    //console.log(navigation)
     const expenses = useSelector(state => state.expense.expenses);
     const expObj = getExpensesByMonth(expenses);
     const months = Object.keys(expObj);
@@ -63,6 +64,11 @@ const HomeScreen = ({ navigation, route }) => {
             </TouchableOpacity>
         );
     };
+
+    useEffect(() => {
+        console.log("inside")
+    }, []);
+    
     return (
         <>
             <Appbar.Header style={{ backgroundColor: 'rgba(255, 255, 255, 1)' }}>
@@ -71,7 +77,7 @@ const HomeScreen = ({ navigation, route }) => {
                         SAVE
                     </Text>
                     {" "} EXPENSES</Text>} />
-                <Appbar.Action color='#979797' icon="menu" onPress={openDrawer} />
+                <Appbar.Action color='#000000' size={40} icon="menu-open" onPress={openDrawer} />
             </Appbar.Header>
             {open ?
                 <View style={styles.drawerStyle}>
@@ -84,7 +90,7 @@ const HomeScreen = ({ navigation, route }) => {
                 </View>
                 : <></>}
 
-            <ScrollView style={styles.container}>
+            <ScrollView contentContainerStyle={{ paddingBottom: 100 }} style={styles.container}>
 
                 {/* <Card style={styles.card}>
                     <LinearGradient colors={['#A56EFF', '#6200EE']} style={styles.cardBackground}>
@@ -124,7 +130,7 @@ const HomeScreen = ({ navigation, route }) => {
 
 
                 <CategoryCard navigation={navigation} styles={styles} />
-
+                
                 <RecentExpenses />
 
             </ScrollView>
@@ -154,7 +160,7 @@ const styles = StyleSheet.create({
     cardBackground: {
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 16,
+        padding: 5,
         borderRadius: 10
     },
     cardContent: {
@@ -172,7 +178,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 16,
-        gap: 10
+        gap: 5,
+        flexWrap: 'wrap'
     },
     viewAllButton: {
         marginLeft: 16,
@@ -182,9 +189,9 @@ const styles = StyleSheet.create({
         right: -30
     },
     categoryButton: {
-        width: 50,
+        width: '49%',
         height: 50,
-        borderRadius: 999,
+        borderRadius: 5,
         textAlign: 'center',
         textAlignVertical: 'center',
         justifyContent: 'center',
@@ -197,7 +204,7 @@ const styles = StyleSheet.create({
         left: 0,
         backgroundColor: '#fff',
         width: '80%',
-        height: 800,
+        height: Dimensions.get("window").height,
         zIndex: 9999
     },
     menuContainer: {

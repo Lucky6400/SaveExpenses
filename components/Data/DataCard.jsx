@@ -12,7 +12,7 @@ const DataCard = ({ totalSpentToday, totalSpentMonth }) => {
     const amountSpentToday = totalSpentToday;
     const today = new Date().toDateString().substring(4);
     return (
-        <Card style={styles.card}>
+        <Card style={{...styles.card, marginTop: 20}}>
             <Text style={styles.heading}>Data Summary</Text>
             <View style={styles.header}>
                 <View>

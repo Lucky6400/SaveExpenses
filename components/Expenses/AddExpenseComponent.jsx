@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import { categories } from '../../data/categories';
-import { months } from '../../data/months';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 const AddExpenseComponent = ({ handleAddExpense, hideModal }) => {
@@ -12,7 +10,8 @@ const AddExpenseComponent = ({ handleAddExpense, hideModal }) => {
     const [selectedIcon, setSelectedIcon] = useState('shopping-cart');
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date().toDateString());
-    const [error, setError] = useState('')
+    const [error, setError] = useState('');
+
     const handleSaveExpense = () => {
         if (title === '' || price === '') {
             setError('Please enter full details');

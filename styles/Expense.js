@@ -21,13 +21,17 @@ export const styles = StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal: 16,
         borderRadius: 8,
-        backgroundColor: '#F3EFFF',
+        backgroundColor: '#303030',
         position: 'relative',
-        marginTop: 20
+        marginTop: 20,
+        width: '100%'
     },
     expenseItemContent: {
         flexDirection: 'row',
         alignItems: 'center',
+        width: '50%',
+        // borderWidth: 1,
+        // borderColor: '#FFF'
     },
     icon: {
         marginRight: 12,
@@ -37,18 +41,18 @@ export const styles = StyleSheet.create({
     },
     title: {
         fontSize: 16,
-        fontWeight: 'bold',
-        color: '#6200EE',
+        fontWeight: 600,
+        color: '#FFF',
     },
     category: {
         fontSize: 14,
-        color: '#6200EE',
+        color: '#FFF',
     },
     amount: {
         fontSize: 13,
         fontWeight: 'bold',
-        color: '#fff',
-        backgroundColor: '#6200EE',
+        color: '#000',
+        backgroundColor: '#FFF',
         position: 'absolute',
         top: -25,
         left: -10,
@@ -59,8 +63,10 @@ export const styles = StyleSheet.create({
     expenseItemActions: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginLeft: -50,
-        gap: 10
+        gap: 15,
+        width: '15%',
+        // borderWidth: 1,
+        // borderColor: '#FFF'
     },
     actionIcon: {
         marginLeft: 0,
@@ -69,7 +75,7 @@ export const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 24,
         right: 24,
-        backgroundColor: '#6200EE',
+        backgroundColor: '#000',
         borderRadius: 36,
         width: 72,
         height: 72,

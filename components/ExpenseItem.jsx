@@ -60,7 +60,7 @@ export default function ExpenseItem({ styles, expense }) {
                         <>
                             <Text style={styles.title}>{expense.title}</Text>
                             <Text style={styles.category}>{expense.category.name}</Text>
-                            <Text>{expense.date}</Text>
+                            <Text style={{ color: '#FFF' }}>{expense.date}</Text>
                         </>
                     )}
                 </View>
@@ -69,19 +69,19 @@ export default function ExpenseItem({ styles, expense }) {
                 {isEditMode ? (
                     <>
                         <TouchableOpacity onPress={handleUpdate}>
-                            <Icon name="done" size={24} color="#6200EE" style={styles.actionIcon} />
+                            <Icon name="done" size={24} color="#FFF" style={styles.actionIcon} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={toggleEditMode}>
-                            <Icon name="cancel" size={24} color="#6200EE" style={styles.actionIcon} />
+                            <Icon name="cancel" size={24} color="#FFF" style={styles.actionIcon} />
                         </TouchableOpacity>
                     </>
                 ) : (
                     <>
                         <TouchableOpacity onPress={handleDelete}>
-                            <Icon name="delete" size={24} color="#6200EE" style={styles.actionIcon} />
+                            <Icon name="delete" size={24} color="#FFF" style={styles.actionIcon} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={toggleEditMode}>
-                            <Icon name="edit" size={24} color="#6200EE" style={styles.actionIcon} />
+                            <Icon name="edit" size={24} color="#FFF" style={styles.actionIcon} />
                         </TouchableOpacity>
                     </>
                 )}

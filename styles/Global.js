@@ -10,7 +10,8 @@ export const globalStyles = StyleSheet.create({
         borderRadius: 10,
         padding: 4,
         margin: 16,
-        marginTop: 20,
+        marginTop: 80,
+        
     },
     secCardHead: {
         width: '100%',

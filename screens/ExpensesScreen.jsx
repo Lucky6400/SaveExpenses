@@ -35,7 +35,7 @@ const ExpensesScreen = () => {
     dispatch(expenseActions.addExpense(newExpense))
     hideModal();
   };
-  console.log(expenses, "expenses are these")
+  //console.log(expenses, "expenses are these")
 
   return (
     <Provider>
@@ -61,7 +61,7 @@ const ExpensesScreen = () => {
             ))}
           </Picker>
           {!date ?
-            <Button style={{ width: '50%', height: 48 }}
+            <Button style={{ width: '50%', height: 48, backgroundColor: '#000' }}
               onPress={() => {
                 setShowDatePicker(true)
               }}
@@ -77,10 +77,16 @@ const ExpensesScreen = () => {
         </View>
         {showDatePicker ?
           <DateTimePicker value={new Date()}
-
-            onChange={(e, s) => {
+            onTouchCancel={() => {
               setShowDatePicker(false);
-              setDate(s.toDateString());
+              setDate('');
+            }}
+            onChange={(e, s) => {
+              console.log(e)
+              setShowDatePicker(false);
+              if (e.type !== "dismissed") {
+                setDate(s.toDateString());
+              }
             }} />
           : <></>}
 

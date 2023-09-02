@@ -6,7 +6,7 @@ export const categories = [
       description: 'Expenses related to purchasing groceries and household items.',
     },
     {
-      name: 'Dining Out',
+      name: 'Food',
       icon: 'restaurant',
       color: '#36A2EB',
       description: 'Expenses incurred from eating at restaurants or ordering takeout.',
